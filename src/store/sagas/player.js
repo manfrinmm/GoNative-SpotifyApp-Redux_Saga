@@ -32,7 +32,30 @@ function* trackChanged() {
 export function* init() {
   yield call(TrackPlayer.setupPlayer);
 
-  // TrackPlayer.addEventListener("playback-track-changed", console.tron.log);
+  TrackPlayer.updateOptions({
+    //ações que o usuario pode fazer enquanto o app estiver minimizado
+    //iOS
+    capabilities: [
+      TrackPlayer.CAPABILITY_PLAY,
+      TrackPlayer.CAPABILITY_PAUSE,
+      TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
+      TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
+      TrackPlayer.CAPABILITY_STOP
+    ],
+    compactCapabilities: [
+      TrackPlayer.CAPABILITY_PLAY,
+      TrackPlayer.CAPABILITY_PAUSE
+    ],
+    //Android
+    notificationCapabilities: [
+      TrackPlayer.CAPABILITY_PLAY,
+      TrackPlayer.CAPABILITY_PAUSE,
+      TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
+      TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
+      TrackPlayer.CAPABILITY_STOP
+    ]
+  });
+
   TrackPlayer.addEventListener("playback-state", () => {});
 }
 
@@ -91,4 +114,9 @@ export function* next() {
     yield call(TrackPlayer.skipToNext);
     yield put(PlayerActions.play());
   }
+}
+
+export function* reset() {
+  yield call(TrackPlayer.stop);
+  yield call(TrackPlayer.reset);
 }

@@ -11,7 +11,8 @@ const { Types, Creators } = createActions({
   play: null,
   pause: null,
   next: null,
-  prev: null
+  prev: null,
+  reset: null
 });
 //Types:{ LOAD_REQUEST, LOAD_SUCCESS, LOAD_FAILURE }
 //Creators:
@@ -42,5 +43,7 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.SET_CURRENT]: (state, { episodeId }) =>
     state.merge({ current: episodeId }),
   [Types.PLAY]: state => state.merge({ playing: true }),
-  [Types.PAUSE]: state => state.merge({ playing: false })
+  [Types.PAUSE]: state => state.merge({ playing: false }),
+  [Types.RESET]: state =>
+    state.merge({ podcast: null, current: null, playing: false })
 });

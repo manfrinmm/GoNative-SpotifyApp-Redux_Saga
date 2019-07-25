@@ -3,7 +3,7 @@ import { all, takeLatest } from "redux-saga/effects";
 import { PodcastsTypes } from "../ducks/podcast";
 import { PlayerTypes } from "../ducks/player";
 
-import { init, setPodcast, play, pause, next, prev } from "./player";
+import { init, setPodcast, play, pause, next, prev, reset } from "./player";
 import { load } from "./podcasts";
 
 export default function* rootSaga() {
@@ -16,6 +16,7 @@ export default function* rootSaga() {
     takeLatest(PlayerTypes.PLAY, play),
     takeLatest(PlayerTypes.PAUSE, pause),
     takeLatest(PlayerTypes.NEXT, next),
-    takeLatest(PlayerTypes.PREV, prev)
+    takeLatest(PlayerTypes.PREV, prev),
+    takeLatest(PlayerTypes.RESET, reset)
   ]);
 }
